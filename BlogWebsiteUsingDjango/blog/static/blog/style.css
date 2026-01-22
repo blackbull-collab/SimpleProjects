@@ -1,0 +1,13 @@
+body {
+    background-color: #fefefe;
+}
+.no-link {
+    text-decoration: none;   /* remove underline */
+    color: inherit;          /* use parent text color */
+    cursor: pointer;         /* still show it's clickable */
+}
+
+.no-link:hover {
+    text-decoration: none;
+    color: inherit;
+}

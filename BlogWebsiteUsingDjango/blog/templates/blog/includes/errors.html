@@ -1,0 +1,43 @@
+<div class="d-flex flex-column">
+
+    {# ================= Django Messages (Success / Error) ================= #}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags == 'success' %}
+                    alert-success   {# Green alert for success messages #}
+                {% else %}
+                    alert-danger    {# Red alert for error messages #}
+                {% endif %}
+            " role="alert">
+                {{ message }} {# Display message text #}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {# ================= Non-field Form Errors ================= #}
+    {# Errors not related to a specific form field #}
+
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <span class="text-danger">{{ error }}</span>
+        </div>
+    {% endfor %}
+
+    {# ================= Field-specific Errors ================= #}
+    
+    {% for field in form %}
+        {% if field.errors %}
+            <div class="alert alert-danger">
+                <span class="fw-bold">
+                    {{ field.label_tag }} {# Field name #}
+                </span>
+
+                {% for error in field.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+</div>
