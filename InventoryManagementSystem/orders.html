@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Inventory Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- HEADER / NAVBAR -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-8">
+                    <h1 class="text-2xl font-bold text-gray-900">📦 Inventory Manager</h1>
+                    <ul class="hidden md:flex gap-6">
+                        <li><a href="index.html" class="text-gray-700 hover:text-blue-600 transition">Dashboard</a></li>
+                        <li><a href="products.html" class="text-gray-700 hover:text-blue-600 transition">Products</a></li>
+                        <li><a href="categories.html" class="text-gray-700 hover:text-blue-600 transition">Categories</a></li>
+                        <li><a href="orders.html" class="text-gray-900 font-medium hover:text-blue-600 transition">Orders</a></li>
+                    </ul>
+                </div>
+                <div class="hidden md:flex items-center gap-4">
+                    <button class="text-gray-700 hover:text-gray-900">⚙️</button>
+                    <button class="text-gray-700 hover:text-gray-900">👤</button>
+                </div>
+                <!-- Mobile Menu Toggle -->
+                <button class="md:hidden text-gray-700">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <section class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900">Orders</h2>
+                <p class="text-gray-600 mt-2">Track and manage all customer orders.</p>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition whitespace-nowrap">➕ New Order</button>
+        </section>
+
+        <!-- Filters & Search -->
+        <section class="bg-white rounded-lg shadow p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Search -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Search Order ID</label>
+                    <input type="text" placeholder="e.g., #ORD-2025-001" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                </div>
+                <!-- Status Filter -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                        <option>All Status</option>
+                        <option>Pending</option>
+                        <option>Processing</option>
+                        <option>Completed</option>
+                        <option>Cancelled</option>
+                    </select>
+                </div>
+                <!-- Date Range -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">From Date</label>
+                    <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                </div>
+                <!-- To Date -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">To Date</label>
+                    <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Statistics -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <article class="bg-white rounded-lg shadow p-4 border-l-4 border-blue-500">
+                <p class="text-gray-600 text-sm font-medium">Total Orders</p>
+                <p class="text-2xl font-bold text-gray-900 mt-1">532</p>
+            </article>
+            <article class="bg-white rounded-lg shadow p-4 border-l-4 border-yellow-500">
+                <p class="text-gray-600 text-sm font-medium">Pending</p>
+                <p class="text-2xl font-bold text-yellow-600 mt-1">42</p>
+            </article>
+            <article class="bg-white rounded-lg shadow p-4 border-l-4 border-purple-500">
+                <p class="text-gray-600 text-sm font-medium">Processing</p>
+                <p class="text-2xl font-bold text-purple-600 mt-1">18</p>
+            </article>
+            <article class="bg-white rounded-lg shadow p-4 border-l-4 border-green-500">
+                <p class="text-gray-600 text-sm font-medium">Completed</p>
+                <p class="text-2xl font-bold text-green-600 mt-1">472</p>
+            </article>
+        </section>
+
+        <!-- Orders Table -->
+        <section class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Order ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Product</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Qty</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Total</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Order Row 1 -->
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-sm text-gray-900 font-medium">#ORD-2025-001</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Laptop Pro</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium text-center">5</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium">$6,499.95</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Completed</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Jan 24, 2025</td>
+                            <td class="px-6 py-4 text-sm space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium transition">View</button>
+                                <button class="text-gray-600 hover:text-gray-800 font-medium transition">⋮</button>
+                            </td>
+                        </tr>
+
+                        <!-- Order Row 2 -->
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-sm text-gray-900 font-medium">#ORD-2025-002</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">USB-C Cable</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium text-center">20</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium">$399.80</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">Pending</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Jan 23, 2025</td>
+                            <td class="px-6 py-4 text-sm space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium transition">View</button>
+                                <button class="text-gray-600 hover:text-gray-800 font-medium transition">⋮</button>
+                            </td>
+                        </tr>
+
+                        <!-- Order Row 3 -->
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-sm text-gray-900 font-medium">#ORD-2025-003</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Wireless Mouse</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium text-center">15</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium">$449.85</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">Processing</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Jan 22, 2025</td>
+                            <td class="px-6 py-4 text-sm space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium transition">View</button>
+                                <button class="text-gray-600 hover:text-gray-800 font-medium transition">⋮</button>
+                            </td>
+                        </tr>
+
+                        <!-- Order Row 4 -->
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-sm text-gray-900 font-medium">#ORD-2025-004</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Monitor 4K</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium text-center">2</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium">$699.98</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Completed</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Jan 21, 2025</td>
+                            <td class="px-6 py-4 text-sm space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium transition">View</button>
+                                <button class="text-gray-600 hover:text-gray-800 font-medium transition">⋮</button>
+                            </td>
+                        </tr>
+
+                        <!-- Order Row 5 -->
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-sm text-gray-900 font-medium">#ORD-2025-005</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Keyboard Mechanical</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium text-center">8</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium">$1,039.92</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Completed</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Jan 20, 2025</td>
+                            <td class="px-6 py-4 text-sm space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium transition">View</button>
+                                <button class="text-gray-600 hover:text-gray-800 font-medium transition">⋮</button>
+                            </td>
+                        </tr>
+
+                        <!-- Order Row 6 -->
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-sm text-gray-900 font-medium">#ORD-2025-006</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Monitor 4K x2, Keyboard Mechanical x1</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium text-center">3</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium">$809.97</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">Cancelled</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Jan 19, 2025</td>
+                            <td class="px-6 py-4 text-sm space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium transition">View</button>
+                                <button class="text-gray-600 hover:text-gray-800 font-medium transition">⋮</button>
+                            </td>
+                        </tr>
+
+                        <!-- Order Row 7 -->
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-sm text-gray-900 font-medium">#ORD-2025-007</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Software License</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium text-center">1</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 font-medium">$99.99</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">Pending</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Jan 18, 2025</td>
+                            <td class="px-6 py-4 text-sm space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium transition">View</button>
+                                <button class="text-gray-600 hover:text-gray-800 font-medium transition">⋮</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center">
+                <span class="text-sm text-gray-600">Showing 1 to 7 of 532 orders</span>
+                <div class="flex gap-2">
+                    <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition disabled:opacity-50">← Previous</button>
+                    <button class="px-3 py-2 border border-blue-600 bg-blue-600 text-white rounded-lg">1</button>
+                    <button class="px-3 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">2</button>
+                    <button class="px-3 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">3</button>
+                    <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">Next →</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h4 class="text-white font-bold mb-4">Inventory Manager</h4>
+                    <p class="text-sm">Your comprehensive solution for inventory management and organization.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Dashboard</a></li>
+                        <li><a href="#" class="hover:text-white transition">Products</a></li>
+                        <li><a href="#" class="hover:text-white transition">Orders</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                <p>&copy; 2025 Inventory Management System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
