@@ -1,0 +1,140 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Activity Log - Inventory Management System{% endblock %}
+{% block page_title %}Activity Log{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3">
+                <div class="col-md-12">
+                    <label class="form-label">Filter by Date Range</label>
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <input type="date" name="date_from" class="form-control" placeholder="From date">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="date" name="date_to" class="form-control" placeholder="To date">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Activity Timeline -->
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="bi bi-clock-history"></i> Recent Activity</h5>
+                <span class="badge badge-primary">Total: {{ activities.paginator.count }}</span>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            {% if activities %}
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Product</th>
+                            <th>Operation</th>
+                            <th>Quantity Changed</th>
+                            <th>Before</th>
+                            <th>After</th>
+                            <th>By</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for activity in activities %}
+                        <tr>
+                            <td>
+                                <small>{{ activity.created_at|date:"M d, Y H:i:s" }}</small>
+                            </td>
+                            <td>
+                                <a href="{% url 'product_detail' activity.product.id %}" style="text-decoration: none;">
+                                    {{ activity.product.name }}
+                                </a>
+                            </td>
+                            <td>
+                                <span class="badge badge-info">{{ activity.get_operation_display }}</span>
+                            </td>
+                            <td>
+                                {% if activity.quantity_changed > 0 %}
+                                <span style="color: #27ae60;">+{{ activity.quantity_changed }}</span>
+                                {% else %}
+                                <span style="color: #e74c3c;">{{ activity.quantity_changed }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <code>{{ activity.previous_quantity }}</code>
+                            </td>
+                            <td>
+                                <code style="color: #2c3e50; font-weight: bold;">{{ activity.new_quantity }}</code>
+                            </td>
+                            <td>
+                                {{ activity.created_by.first_name|default:activity.created_by.username }}
+                            </td>
+                            <td>
+                                {% if activity.notes %}
+                                    <small class="text-muted" title="{{ activity.notes }}">
+                                        {{ activity.notes|truncatewords:5 }}
+                                    </small>
+                                {% else %}
+                                    <small class="text-muted">—</small>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            {% if activities.has_other_pages %}
+            <div class="d-flex justify-content-center mt-4 pb-3">
+                <nav>
+                    <ul class="pagination">
+                        {% if activities.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1">First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ activities.previous_page_number }}">Previous</a>
+                        </li>
+                        {% endif %}
+
+                        <li class="page-item active">
+                            <span class="page-link">Page {{ activities.number }} of {{ activities.paginator.num_pages }}</span>
+                        </li>
+
+                        {% if activities.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ activities.next_page_number }}">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ activities.paginator.num_pages }}">Last</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="p-5 text-center">
+                <i class="bi bi-inbox" style="font-size: 48px; color: #ccc;"></i>
+                <p class="mt-3 text-muted">No activity found</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
