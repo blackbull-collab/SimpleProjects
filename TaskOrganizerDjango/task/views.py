@@ -9,7 +9,7 @@ def task_detail(request):
     return render(request,"tasks/task_detail.html")
 
 def create_task(request):
-    return render(request,"tasks/create_tasks.html")
+    return render(request,"tasks/create_task.html")
 
 def edit_task(request):
-    return render(request,"tasks/edit_tasks.html")
+    return render(request,"tasks/edit_task.html")
