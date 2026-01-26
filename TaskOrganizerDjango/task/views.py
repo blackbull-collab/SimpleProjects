@@ -5,7 +5,6 @@ from .models import Task
 alltasks=Task.objects.all()
 
 def task_list(request):
-    
     return render(request,"tasks/task_list.html",{"tasks":alltasks})
 
 def task_detail(request,task_id):
