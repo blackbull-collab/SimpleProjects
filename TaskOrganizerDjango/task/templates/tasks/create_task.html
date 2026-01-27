@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Task - Task Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        input, textarea, select {
+            width: 100% !important;
+            padding: 0.75rem !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 0.5rem !important;
+            font-size: 1rem !important;
+            font-family: inherit !important;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none !important;
+            ring: 2px !important;
+            ring-color: #4f46e5 !important;
+            border-color: #4f46e5 !important;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <!-- Navigation -->
@@ -40,42 +60,38 @@
                 
                 <!-- Title -->
                 <div>
-                    <label class="block text-gray-700 font-semibold mb-2">Task Title *</label>
-                    <input type="text" 
-                           name="title" 
-                           required
-                           placeholder="Enter task title" 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <label for="{{ form.title.id_for_label }}" class="block text-gray-700 font-semibold mb-2">Task Title *</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <span class="text-red-500 text-sm">{{ form.title.errors }}</span>
+                    {% endif %}
                 </div>
 
                 <!-- Description -->
                 <div>
-                    <label class="block text-gray-700 font-semibold mb-2">Description *</label>
-                    <textarea rows="5" 
-                              name="description" 
-                              required
-                              placeholder="Enter detailed task description" 
-                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                    <label for="{{ form.description.id_for_label }}" class="block text-gray-700 font-semibold mb-2">Description *</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <span class="text-red-500 text-sm">{{ form.description.errors }}</span>
+                    {% endif %}
                 </div>
 
                 <!-- Status -->
                 <div>
-                    <label class="block text-gray-700 font-semibold mb-2">Status *</label>
-                    <select name="status" 
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        <option value="pending">Pending</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="completed">Completed</option>
-                    </select>
+                    <label for="{{ form.status.id_for_label }}" class="block text-gray-700 font-semibold mb-2">Status *</label>
+                    {{ form.status }}
+                    {% if form.status.errors %}
+                        <span class="text-red-500 text-sm">{{ form.status.errors }}</span>
+                    {% endif %}
                 </div>
 
                 <!-- Due Date -->
                 <div>
-                    <label class="block text-gray-700 font-semibold mb-2">Due Date *</label>
-                    <input type="date" 
-                           name="duedate" 
-                           required
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <label for="{{ form.duedate.id_for_label }}" class="block text-gray-700 font-semibold mb-2">Due Date *</label>
+                    {{ form.duedate }}
+                    {% if form.duedate.errors %}
+                        <span class="text-red-500 text-sm">{{ form.duedate.errors }}</span>
+                    {% endif %}
                 </div>
 
                 <!-- Buttons -->
