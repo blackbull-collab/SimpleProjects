@@ -60,9 +60,9 @@
                 <form method="post" class="flex gap-4 justify-center">
                     {% csrf_token %}
                     <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-lg font-semibold transition">
-                        <a href="{% url 'task:deletetask' task_id=tasks.pk %}" class="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-lg font-semibold transition">
-                        Delete Task
-                        </a>
+                        <a href="{% url 'task:deletetask' task_id=tasks.pk %}" class="bg-red-600  text-white px-8 py-3 rounded-lg font-semibold transition flex items-center justify-center">
+                            Delete Task
+                        </a>   
                     </button>
                     <a href="{% url 'task:tasklist' %}" class="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-lg font-semibold transition">
                         Cancel

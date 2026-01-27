@@ -62,8 +62,8 @@
                             </div>
                         </div>
                         <div class="flex gap-2 ml-4">
-                            <a href="{% url "task:taskdetail" task_id=tasks.pk %}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition">View</a>
-                            <a href="{% url "task:edittask" task_id=tasks.pk %}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition">Edit</a>
+                            <a href="{% url "task:taskdetail" task_id=task.pk %}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition">View</a>
+                            <a href="{% url "task:edittask" task_id=task.pk %}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition">Edit</a>
                             <a href="" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition">Delete</a>
                         </div>
                     </div>

@@ -1,23 +1,53 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from .models import Task
-# Create your views here.
+from .forms import TaskForm
 
-alltasks=Task.objects.all()
 
 def task_list(request):
-    return render(request,"tasks/task_list.html",{"tasks":alltasks})
+    tasks = Task.objects.all()
+    return render(request, "tasks/task_list.html", {"tasks": tasks})
 
-def task_detail(request,task_id):
-    tasks=Task.objects.get(pk=task_id)
-    return render(request,"tasks/task_detail.html",{"tasks":tasks})
+
+def task_detail(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    return render(request, "tasks/task_detail.html", {"task": task})
+
 
 def create_task(request):
-    return render(request,"tasks/create_task.html",{"tasks":alltasks})
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Task created successfully!')
+            return redirect('task:tasklist')
+    else:
+        form = TaskForm()
 
-def edit_task(request,task_id):
-    tasks=Task.objects.get(pk=task_id)
-    return render(request,"tasks/edit_task.html",{"tasks":tasks})
+    return render(request, "tasks/create_task.html", {'form': form})
 
-def delete_task(request,task_id):
-    tasks=Task.objects.get(pk=task_id)
-    return render(request,"tasks/delete_task.html",{"tasks":tasks})
+
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Task updated successfully!")
+            return redirect("task:tasklist")
+    else:
+        form = TaskForm(instance=task)
+
+    return render(request, "tasks/edit_task.html", {"form": form, "task": task})
+
+
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+
+    if request.method == "POST":
+        task.delete()
+        messages.success(request, "Task deleted successfully!")
+        return redirect("task:tasklist")
+
+    return render(request, "tasks/delete_task.html", {"task": task})
